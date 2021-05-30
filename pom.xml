@@ -14,6 +14,7 @@
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
         <spring-cloud.version>2020.0.3-SNAPSHOT</spring-cloud.version>
+        <sureness-core.version>1.0.3</sureness-core.version>
     </properties>
 
     <parent>
