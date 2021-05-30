@@ -16,10 +16,10 @@ import java.util.Map;
  */
 public class ExchangeUtils {
 
-    private Mono<Void> responseWrite(ServerWebExchange exchange, HttpStatus statusCode,
+    public static Mono<Void> responseWrite(ServerWebExchange exchange, int statusCode,
                                      byte[] content, Map<String, Object> headers) {
 
-        exchange.getResponse().setStatusCode(statusCode);
+        exchange.getResponse().setRawStatusCode(statusCode);
         if (headers != null) {
             headers.forEach((key, value) -> exchange.getResponse().getHeaders().add(key, String.valueOf(value)));
         }

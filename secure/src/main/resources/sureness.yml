@@ -5,19 +5,12 @@
 # eg: /api/v1/bar===post===[role1] means /api/v1/bar===post can be access by role1
 # eg: /api/v3/foo===get===[] means /api/v3/foo===* can not be access by any role
 resourceRole:
-  - /api/v1/bar/*===get===[role1,role2,role3]
-  - /api/v1/bar===post===[role1]
-  - /api/v2/bar===put===[role2]
-  - /api/v2/foo===get===[role3]
-  - /api/v3/foo===get===[]
+  - /logout===delete===[*]
+  - /signout===delete===[*]
 
 # load api resource which do not need be protected, means them need be excluded.
 # these api resource can be access by everyone
 # eg: /**/*.png===* means get/post/put/delete/patch any url suffixed with `.png` can be access by everyone
 excludedResource:
-  - /api/v2/foo===delete
-  - /**/*.html===get
-  - /**/*.js===get
-  - /**/*.css===get
-  - /**/*.ico===*
-  - /**/*.png===*
+  - /login===put
+  - /signin===post
