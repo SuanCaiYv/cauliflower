@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="fuse" />
         <module name="stream" />
+        <module name="resource" />
         <module name="discovery" />
         <module name="connection" />
         <module name="secure" />
@@ -29,6 +30,7 @@
       <module name="fuse" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="message" options="-parameters" />
+      <module name="resource" options="-parameters" />
       <module name="secure" options="-parameters" />
       <module name="stream" options="-parameters" />
       <module name="user" options="-parameters" />

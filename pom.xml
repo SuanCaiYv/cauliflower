@@ -33,6 +33,7 @@
         <module>flower</module>
         <module>message</module>
         <module>connection</module>
+        <module>resource</module>
     </modules>
 
     <dependencyManagement>
