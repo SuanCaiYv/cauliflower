@@ -1,0 +1,43 @@
+server:
+  port: 9290
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: git, dev
+  cloud:
+    config:
+      server:
+        native:
+          search-locations:
+            - classpath:/config
+        git:
+          uri: https://github.com/SuanCaiYv/cauliflower-config-repo
+          search-paths: /
+          default-label: master
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://${base.discovery.host}:${base.discovery.port}/eureka/
+    healthcheck:
+      enabled: true
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+base:
+  discovery:
+    host: 127.0.0.1
+    port: 9190
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+base:
+  discovery:
+    host: 81.68.154.171
+    port: 9190

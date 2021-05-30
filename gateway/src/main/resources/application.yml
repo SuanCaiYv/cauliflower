@@ -1,0 +1,15 @@
+server:
+  port: 9390
+spring:
+  profiles:
+    active: dev
+  cloud:
+    gateway:
+      enabled: true
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: false
+    registry-fetch-interval-seconds: 10
+    service-url:
+      defaultZone: http://${base.discovery.host}:${base.discovery.port}/eureka

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="fuse" />
+        <module name="stream" />
+        <module name="discovery" />
+        <module name="connection" />
+        <module name="secure" />
+        <module name="message" />
+        <module name="config" />
+        <module name="user" />
+        <module name="gateway" />
+        <module name="flower" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="config" options="-parameters" />
+      <module name="connection" options="-parameters" />
+      <module name="discovery" options="-parameters" />
+      <module name="flower" options="-parameters" />
+      <module name="fuse" options="-parameters" />
+      <module name="gateway" options="-parameters" />
+      <module name="message" options="-parameters" />
+      <module name="secure" options="-parameters" />
+      <module name="stream" options="-parameters" />
+      <module name="user" options="-parameters" />
+    </option>
+  </component>
+</project>

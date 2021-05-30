@@ -1,0 +1,25 @@
+server:
+  port: 9190
+spring:
+  profiles:
+    active: dev
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://${base.host}:${server.port}/eureka/
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+base:
+  host: 127.0.0.1
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+base:
+  host: 81.68.154.171

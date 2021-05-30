@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/config/pom.xml" />
+        <option value="$PROJECT_DIR$/gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/secure/pom.xml" />
+        <option value="$PROJECT_DIR$/stream/pom.xml" />
+        <option value="$PROJECT_DIR$/fuse/pom.xml" />
+        <option value="$PROJECT_DIR$/user/pom.xml" />
+        <option value="$PROJECT_DIR$/flower/pom.xml" />
+        <option value="$PROJECT_DIR$/message/pom.xml" />
+        <option value="$PROJECT_DIR$/connect/connection/pom.xml" />
+        <option value="$PROJECT_DIR$/connecting/pom.xml" />
+        <option value="$PROJECT_DIR$/discovery/pom.xml" />
+        <option value="$PROJECT_DIR$/connection/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" default="true" project-jdk-name="JavaSE-15" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

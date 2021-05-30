@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: gateway-server
+  profiles:
+    active: dev
+  cloud:
+    config:
+      uri: http://${base.gateway.host}:${base.gateway.port}
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+base:
+  discovery:
+    host: 127.0.0.1
+    port: 9190
+  dateway:
+    host: 127.0.0.1
+    port: 9390
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+base:
+  discovery:
+    host: 81.68.154.171
+    port: 9190
+  gateway:
+    host: 81.68.154.171
+    port: 9390
