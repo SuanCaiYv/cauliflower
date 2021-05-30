@@ -32,24 +32,11 @@ public class RedisConfig {
                 RedisSerializationContext.newSerializationContext(new StringRedisSerializer());
 
         RedisSerializationContext<String, Object> context = builder.value(serializer).build();
-
         return new ReactiveRedisTemplate<>(factory, context);
     }
 
     @Bean
-    public RedisConnectionFactory redisConnectionFactory(Environment environment) {
-        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
-        redisStandaloneConfiguration.setHostName(environment.getProperty("spring.redis.host"));
-        redisStandaloneConfiguration.setPassword(environment.getProperty("spring.redis.password"));
-        LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(redisStandaloneConfiguration);
-        lettuceConnectionFactory.setDatabase(0);
-        lettuceConnectionFactory.afterPropertiesSet();
-        return lettuceConnectionFactory;
-    }
-
-    @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-        System.out.println(redisConnectionFactory.getConnection().ping());
         Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
@@ -63,6 +50,6 @@ public class RedisConfig {
         redisTemplate.setHashKeySerializer(stringRedisSerializer);
         redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
         redisTemplate.afterPropertiesSet();
-        return new RedisTemplate<>();
+        return redisTemplate;
     }
 }
