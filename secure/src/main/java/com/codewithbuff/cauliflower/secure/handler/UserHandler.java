@@ -8,8 +8,11 @@ import com.codewithbuff.cauliflower.secure.entity.SysUser;
 import com.codewithbuff.cauliflower.secure.entity.UserAuths;
 import com.codewithbuff.cauliflower.secure.result.HttpStatusExternal;
 import com.codewithbuff.cauliflower.secure.result.ResultBean;
+import com.codewithbuff.cauliflower.secure.system.SystemConstant;
 import com.codewithbuff.cauliflower.secure.util.BaseUtils;
+import com.codewithbuff.cauliflower.secure.util.ReactiveJwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -20,6 +23,7 @@ import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * @author 十三月之夜
@@ -40,6 +44,12 @@ public class UserHandler {
 
     @Autowired
     private UserAuthsMapper userAuthsMapper;
+
+    @Autowired
+    private ReactiveJwtUtils reactiveJwtUtils;
+
+    @Autowired
+    private ReactiveRedisTemplate<String, Object> reactiveRedisTemplate;
 
     public Mono<ServerResponse> loginIn(ServerRequest serverRequest) {
         Mono<MultiValueMap<String, String>> multiValueMapMono = serverRequest.formData();
@@ -72,13 +82,22 @@ public class UserHandler {
                                     .build();
                             return responseBuilder(resultBean.getCode(), null, resultBean);
                         } else {
-                            ResultBean<String> resultBean = ResultBean.<String>builder()
-                                    .code(HttpStatus.OK.value())
-                                    .msg("")
-                                    .data("")
-                                    .timestamp(LocalDateTime.now())
-                                    .build();
-                            return responseBuilder(resultBean.getCode(), null, resultBean);
+                            return reactiveJwtUtils.signRefreshToken(sysUser.getUsername())
+                                    .flatMap(refreshToken -> {
+                                        return reactiveJwtUtils.signAccessToken(refreshToken)
+                                                .flatMap(accessToken -> {
+                                                    HashMap<String, String> hashMap = new HashMap<>();
+                                                    hashMap.put("refreshToken", refreshToken);
+                                                    hashMap.put("accessToken", accessToken);
+                                                    ResultBean<HashMap<String, String>> resultBean = ResultBean.<HashMap<String, String>>builder()
+                                                            .code(HttpStatus.OK.value())
+                                                            .msg("")
+                                                            .data(hashMap)
+                                                            .timestamp(LocalDateTime.now())
+                                                            .build();
+                                                    return responseBuilder(resultBean.getCode(), null, resultBean);
+                                                });
+                                    });
                         }
                     });
                 }
@@ -91,6 +110,46 @@ public class UserHandler {
     }
 
     public Mono<ServerResponse> signIn(ServerRequest serverRequest) {
+        Mono<MultiValueMap<String, String>> multiValueMapMono = serverRequest.formData();
+        return multiValueMapMono.flatMap(multiValueMap -> {
+            String identifier = multiValueMap.getFirst("identifier");
+            String credential = multiValueMap.getFirst("credential");
+            String verCode = multiValueMap.getFirst("verCode");
+            return reactiveRedisTemplate.opsForValue().get(SystemConstant.VER_CODE_PREFIX + identifier)
+                    .map(p1 -> (String) p1)
+                    .flatMap(p2 -> {
+                        if (!p2.equals(verCode)) {
+                            ;
+                        } else {
+                            SysUser sysUser = SysUser.builder()
+                                    .createdTime(LocalDateTime.now())
+                                    .updatedTime(LocalDateTime.now())
+                                    .state(true)
+                                    .flag(1)
+                                    // TODO 新的Username设置
+                                    .username(UUID.randomUUID().toString())
+                                    .salt(BaseUtils.getSalt())
+                                    .build();
+                            return sysUserMapper.insert(sysUser)
+                                    .flatMap(p3 -> {
+                                        UserAuths userAuths = UserAuths.builder()
+                                                .createdTime(LocalDateTime.now())
+                                                .updatedTime(LocalDateTime.now())
+                                                .available(true)
+                                                .userId(p3.getId())
+                                                .identityType(UserAuths.IDENTITY_TYPE_EMAIL)
+                                                .identifier(identifier)
+                                                .credential(BaseUtils.MD5(credential, p3.getSalt()))
+                                                .build();
+                                        return userAuthsMapper.insert(userAuths)
+                                                .flatMap(p4 -> {
+                                                    ;
+                                                });
+                                    });
+                        }
+                    });
+        });
+
         return Mono.empty();
     }
 

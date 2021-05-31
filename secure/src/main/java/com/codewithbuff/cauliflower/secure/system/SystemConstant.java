@@ -27,4 +27,6 @@ public class SystemConstant {
     public static final String REFRESH_TOKEN = "REFRESH_TOKEN";
 
     public static final String IDENTITY_TYPE_EMAIL = "IDENTITY_TYPE_EMAIL";
+
+    public static final String VER_CODE_PREFIX = "VER_CODE_PREFIX_";
 }
