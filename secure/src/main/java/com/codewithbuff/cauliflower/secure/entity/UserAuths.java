@@ -52,4 +52,6 @@ public class UserAuths implements Serializable {
     @Column("credential")
     private String credential;
 
+    public static final String IDENTITY_TYPE_EMAIL = "EMAIL";
+
 }

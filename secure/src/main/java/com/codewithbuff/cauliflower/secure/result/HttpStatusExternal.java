@@ -50,7 +50,19 @@ public enum HttpStatusExternal {
     /**
      * 强制下线
      */
-    TOKEN_EXCLUDED(469, Series.CLIENT_ERROR, "User Forced Log Out");
+    TOKEN_EXCLUDED(469, Series.CLIENT_ERROR, "User Forced Log Out"),
+
+    // 用户异常系列
+
+    /**
+     * 用户未注册
+     */
+    USER_NOT_FOUND(470, Series.CLIENT_ERROR, "User Not Found"),
+
+    /**
+     * 用户人生失败
+     */
+    USER_CREDENTIAL_FAILED(471, Series.CLIENT_ERROR, "User Credential Failed");
 
 
     private final int value;
