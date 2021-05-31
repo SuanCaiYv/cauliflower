@@ -60,7 +60,7 @@ public enum HttpStatusExternal {
     USER_NOT_FOUND(470, Series.CLIENT_ERROR, "User Not Found"),
 
     /**
-     * 用户人生失败
+     * 用户认证失败
      */
     USER_CREDENTIAL_FAILED(471, Series.CLIENT_ERROR, "User Credential Failed");
 
