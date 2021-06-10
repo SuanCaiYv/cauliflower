@@ -360,7 +360,7 @@ CREATE TABLE `sys_user` (
   `salt` varchar(200) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `sys_user_username_index` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -369,6 +369,7 @@ CREATE TABLE `sys_user` (
 
 LOCK TABLES `sys_user` WRITE;
 /*!40000 ALTER TABLE `sys_user` DISABLE KEYS */;
+INSERT INTO `sys_user` VALUES (12,'2021-06-10 22:17:06.495082','2021-06-10 22:17:06.495108',1,1,'A9259EEE-462C-489B-B8A8-DF73F215B8E5','603382FA4416A862A9');
 /*!40000 ALTER TABLE `sys_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -388,7 +389,7 @@ CREATE TABLE `sys_user_roles` (
   `role_id` bigint unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `sys_user_roles_user_id_index` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -397,6 +398,7 @@ CREATE TABLE `sys_user_roles` (
 
 LOCK TABLES `sys_user_roles` WRITE;
 /*!40000 ALTER TABLE `sys_user_roles` DISABLE KEYS */;
+INSERT INTO `sys_user_roles` VALUES (12,'2021-06-10 22:17:06.534360','2021-06-10 22:17:06.534372',1,12,2);
 /*!40000 ALTER TABLE `sys_user_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -444,7 +446,7 @@ CREATE TABLE `user_auths` (
   PRIMARY KEY (`id`),
   KEY `user_auths_identity_type_identifier_index` (`identity_type`,`identifier`),
   KEY `user_auths_user_id_index` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -453,6 +455,7 @@ CREATE TABLE `user_auths` (
 
 LOCK TABLES `user_auths` WRITE;
 /*!40000 ALTER TABLE `user_auths` DISABLE KEYS */;
+INSERT INTO `user_auths` VALUES (12,'2021-06-10 22:17:06.514441','2021-06-10 22:17:06.514455',1,12,'EMAIL','2508826394@qq.com','B169B2B9A618DE50D6C3B5A86C68ACD8'),(13,'2021-06-10 22:17:06.514698','2021-06-10 22:17:06.514705',1,12,'USERNAME','codewithbuff','B169B2B9A618DE50D6C3B5A86C68ACD8');
 /*!40000 ALTER TABLE `user_auths` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -464,22 +467,23 @@ DROP TABLE IF EXISTS `user_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_info` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `user_id` bigint NOT NULL,
   `username` varchar(200) NOT NULL DEFAULT '' COMMENT '用户名',
   `email` varchar(200) NOT NULL DEFAULT '' COMMENT '邮箱',
   `phone_num` varchar(20) NOT NULL DEFAULT '' COMMENT '手机号：+<地区>:xxxx',
   `gender` tinyint NOT NULL DEFAULT '0' COMMENT '0：未知，1：男，2：女',
+  `birth_date` datetime(6) NOT NULL COMMENT '出生日期',
   `avatar` varchar(200) NOT NULL DEFAULT '' COMMENT '头像',
   `bkg_img` varchar(200) NOT NULL DEFAULT '' COMMENT '主页背景图',
   `talking` varchar(200) NOT NULL DEFAULT '' COMMENT '签名',
   `location` bigint NOT NULL DEFAULT '0' COMMENT '地址',
   `website` varchar(200) NOT NULL DEFAULT '' COMMENT '个人网站',
-  PRIMARY KEY (`user_id`),
-  UNIQUE KEY `user_info_user_id_uindex` (`user_id`),
+  PRIMARY KEY (`id`),
   KEY `user_info_email_index` (`email`),
   KEY `user_info_phone_num_index` (`phone_num`),
   KEY `user_info_username_index` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -488,6 +492,7 @@ CREATE TABLE `user_info` (
 
 LOCK TABLES `user_info` WRITE;
 /*!40000 ALTER TABLE `user_info` DISABLE KEYS */;
+INSERT INTO `user_info` VALUES (8,12,'codewithbuff','2508826394@qq.com','',0,'2000-04-12 04:30:00.000000','','','',0,'');
 /*!40000 ALTER TABLE `user_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -585,4 +590,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-10 14:07:02
+-- Dump completed on 2021-06-10 22:31:21
