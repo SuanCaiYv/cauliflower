@@ -9,4 +9,4 @@ eureka:
       defaultZone: http://${base.discovery.host}:${base.discovery.port}/eureka/
 logging:
   level:
-    root: warn
+    root: info

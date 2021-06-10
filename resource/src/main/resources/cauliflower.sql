@@ -16,6 +16,246 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `cauliflower`
+--
+
+DROP TABLE IF EXISTS `cauliflower`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cauliflower` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `created_time` datetime(6) NOT NULL,
+  `updated_time` datetime(6) NOT NULL,
+  `is_available` tinyint(1) NOT NULL DEFAULT '0',
+  `author_id` bigint NOT NULL DEFAULT '0' COMMENT '作者ID',
+  `type` varchar(200) NOT NULL DEFAULT '' COMMENT '白花菜/绿花菜',
+  `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态：0可见，1不可见，2部分可见，3部分不可见',
+  `un_visibility_list` bigint NOT NULL COMMENT '不可见名单',
+  `ttl` bigint NOT NULL DEFAULT '-1' COMMENT '存活时间：-1永久，单位为毫秒',
+  `comments_num` bigint NOT NULL DEFAULT '0' COMMENT '偷懒了，应该是int',
+  `forward_num` bigint NOT NULL DEFAULT '0' COMMENT '偷懒了，应该是int',
+  `vote_num` bigint NOT NULL DEFAULT '0' COMMENT '偷懒了，应该是int',
+  `up_num` bigint NOT NULL DEFAULT '0' COMMENT '偷懒了，应该是int',
+  PRIMARY KEY (`id`),
+  KEY `cauliflower_author_id_index` (`author_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cauliflower`
+--
+
+LOCK TABLES `cauliflower` WRITE;
+/*!40000 ALTER TABLE `cauliflower` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cauliflower` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cauliflower_comment`
+--
+
+DROP TABLE IF EXISTS `cauliflower_comment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cauliflower_comment` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `created_time` datetime(6) NOT NULL,
+  `is_available` tinyint(1) NOT NULL DEFAULT '0',
+  `cauliflower_id` bigint NOT NULL,
+  `user_id` bigint DEFAULT NULL,
+  `content` varchar(1000) DEFAULT NULL,
+  `up_num` int NOT NULL DEFAULT '0' COMMENT '获赞数',
+  PRIMARY KEY (`id`),
+  KEY `cauliflower_comment_cauliflower_id_index` (`cauliflower_id`),
+  KEY `cauliflower_comment_user_id_index` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cauliflower_comment`
+--
+
+LOCK TABLES `cauliflower_comment` WRITE;
+/*!40000 ALTER TABLE `cauliflower_comment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cauliflower_comment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cauliflower_forward`
+--
+
+DROP TABLE IF EXISTS `cauliflower_forward`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cauliflower_forward` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `created_time` datetime(6) NOT NULL,
+  `is_available` tinyint(1) NOT NULL DEFAULT '0',
+  `cauliflower_id` bigint NOT NULL DEFAULT '0',
+  `user_id` bigint NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `cauliflower_forward_cauliflower_id_index` (`cauliflower_id`),
+  KEY `cauliflower_forward_user_id_index` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cauliflower_forward`
+--
+
+LOCK TABLES `cauliflower_forward` WRITE;
+/*!40000 ALTER TABLE `cauliflower_forward` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cauliflower_forward` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cauliflower_vote`
+--
+
+DROP TABLE IF EXISTS `cauliflower_vote`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cauliflower_vote` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `created_time` datetime(6) NOT NULL,
+  `is_available` tinyint(1) NOT NULL DEFAULT '0',
+  `cauliflower_id` bigint NOT NULL DEFAULT '0',
+  `user_id` bigint NOT NULL DEFAULT '0',
+  `type` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `cauliflower_vote_cauliflower_id_index` (`cauliflower_id`),
+  KEY `cauliflower_vote_user_id_index` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cauliflower_vote`
+--
+
+LOCK TABLES `cauliflower_vote` WRITE;
+/*!40000 ALTER TABLE `cauliflower_vote` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cauliflower_vote` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `green_cauliflower`
+--
+
+DROP TABLE IF EXISTS `green_cauliflower`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `green_cauliflower` (
+  `id` bigint NOT NULL,
+  `content` blob NOT NULL,
+  `topic` varchar(500) NOT NULL DEFAULT '' COMMENT '主题：不超过50个',
+  `location` bigint NOT NULL DEFAULT '0' COMMENT '定位',
+  `images` varchar(2000) NOT NULL DEFAULT '' COMMENT '图片组',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `green_cauliflower_id_uindex` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `green_cauliflower`
+--
+
+LOCK TABLES `green_cauliflower` WRITE;
+/*!40000 ALTER TABLE `green_cauliflower` DISABLE KEYS */;
+/*!40000 ALTER TABLE `green_cauliflower` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `green_cauliflower_topic`
+--
+
+DROP TABLE IF EXISTS `green_cauliflower_topic`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `green_cauliflower_topic` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `created_time` datetime(6) NOT NULL,
+  `updated_time` datetime(6) DEFAULT NULL,
+  `is_available` tinyint(1) NOT NULL DEFAULT '0',
+  `name` varchar(200) NOT NULL DEFAULT '',
+  `type` varchar(200) NOT NULL DEFAULT '',
+  `heat` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `green_cauliflower_topic`
+--
+
+LOCK TABLES `green_cauliflower_topic` WRITE;
+/*!40000 ALTER TABLE `green_cauliflower_topic` DISABLE KEYS */;
+/*!40000 ALTER TABLE `green_cauliflower_topic` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `location_rcd`
+--
+
+DROP TABLE IF EXISTS `location_rcd`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `location_rcd` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `created_time` datetime(6) NOT NULL,
+  `updated_time` datetime(6) NOT NULL,
+  `is_available` tinyint(1) NOT NULL DEFAULT '0',
+  `location_str` varchar(200) NOT NULL DEFAULT '' COMMENT '地址名：国家-省/州-市-区/县-街道/镇',
+  `location_coordinate` varchar(200) NOT NULL DEFAULT '' COMMENT '经纬度',
+  `national` varchar(100) NOT NULL DEFAULT '' COMMENT '国家',
+  `province` varchar(100) NOT NULL DEFAULT '' COMMENT '省/州',
+  `municipal` varchar(100) NOT NULL DEFAULT '' COMMENT '市/行政中心',
+  `county` varchar(100) NOT NULL DEFAULT '' COMMENT '县/地级市/区',
+  `region` varchar(100) NOT NULL DEFAULT '' COMMENT '镇/街道',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `location_rcd`
+--
+
+LOCK TABLES `location_rcd` WRITE;
+/*!40000 ALTER TABLE `location_rcd` DISABLE KEYS */;
+/*!40000 ALTER TABLE `location_rcd` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `message`
+--
+
+DROP TABLE IF EXISTS `message`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `message` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `created_time` datetime(6) NOT NULL,
+  `updated_time` datetime(6) NOT NULL,
+  `status` int NOT NULL DEFAULT '0' COMMENT '0：可见，1：已撤回',
+  `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'false：用户消息，true：系统消息',
+  `from_id` bigint NOT NULL,
+  `to_id` bigint NOT NULL,
+  `content` varchar(1000) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `message_from_id_index` (`from_id`),
+  KEY `message_to_id_index` (`to_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `message`
+--
+
+LOCK TABLES `message` WRITE;
+/*!40000 ALTER TABLE `message` DISABLE KEYS */;
+/*!40000 ALTER TABLE `message` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `sys_resource`
 --
 
@@ -161,6 +401,31 @@ LOCK TABLES `sys_user_roles` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `un_visibility_list`
+--
+
+DROP TABLE IF EXISTS `un_visibility_list`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `un_visibility_list` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `cauliflower_id` bigint NOT NULL DEFAULT '0',
+  `user_id` bigint NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `un_visibility_list_cauliflower_id_index` (`cauliflower_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `un_visibility_list`
+--
+
+LOCK TABLES `un_visibility_list` WRITE;
+/*!40000 ALTER TABLE `un_visibility_list` DISABLE KEYS */;
+/*!40000 ALTER TABLE `un_visibility_list` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user_auths`
 --
 
@@ -190,6 +455,126 @@ LOCK TABLES `user_auths` WRITE;
 /*!40000 ALTER TABLE `user_auths` DISABLE KEYS */;
 /*!40000 ALTER TABLE `user_auths` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `user_info`
+--
+
+DROP TABLE IF EXISTS `user_info`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user_info` (
+  `user_id` bigint NOT NULL,
+  `username` varchar(200) NOT NULL DEFAULT '' COMMENT '用户名',
+  `email` varchar(200) NOT NULL DEFAULT '' COMMENT '邮箱',
+  `phone_num` varchar(20) NOT NULL DEFAULT '' COMMENT '手机号：+<地区>:xxxx',
+  `gender` tinyint NOT NULL DEFAULT '0' COMMENT '0：未知，1：男，2：女',
+  `avatar` varchar(200) NOT NULL DEFAULT '' COMMENT '头像',
+  `bkg_img` varchar(200) NOT NULL DEFAULT '' COMMENT '主页背景图',
+  `talking` varchar(200) NOT NULL DEFAULT '' COMMENT '签名',
+  `location` bigint NOT NULL DEFAULT '0' COMMENT '地址',
+  `website` varchar(200) NOT NULL DEFAULT '' COMMENT '个人网站',
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_info_user_id_uindex` (`user_id`),
+  KEY `user_info_email_index` (`email`),
+  KEY `user_info_phone_num_index` (`phone_num`),
+  KEY `user_info_username_index` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_info`
+--
+
+LOCK TABLES `user_info` WRITE;
+/*!40000 ALTER TABLE `user_info` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_info` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_relationship`
+--
+
+DROP TABLE IF EXISTS `user_relationship`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user_relationship` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `created_time` datetime(6) NOT NULL,
+  `updated_time` datetime(6) NOT NULL,
+  `is_available` tinyint(1) NOT NULL DEFAULT '0',
+  `main_user_id` bigint NOT NULL DEFAULT '0' COMMENT '当前用户',
+  `sub_user_id` bigint NOT NULL DEFAULT '0' COMMENT '关注当前用户的用户',
+  PRIMARY KEY (`id`),
+  KEY `user_relationship_main_user_id_sub_user_id_index` (`main_user_id`,`sub_user_id`),
+  KEY `user_relationship_sub_user_id_main_user_id_index` (`sub_user_id`,`main_user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_relationship`
+--
+
+LOCK TABLES `user_relationship` WRITE;
+/*!40000 ALTER TABLE `user_relationship` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_relationship` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `white_cauliflower`
+--
+
+DROP TABLE IF EXISTS `white_cauliflower`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `white_cauliflower` (
+  `id` bigint NOT NULL DEFAULT '0',
+  `title` varchar(500) NOT NULL DEFAULT '' COMMENT '文章标题',
+  `body` blob NOT NULL COMMENT '文章内容',
+  `column` varchar(500) NOT NULL DEFAULT '' COMMENT '文章专栏，最多十个',
+  `cover_image` varchar(500) NOT NULL DEFAULT '' COMMENT '封面图',
+  `summary` varchar(500) NOT NULL DEFAULT '' COMMENT '概要',
+  PRIMARY KEY (`id`),
+  KEY `white_cauliflower_title_index` (`title`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `white_cauliflower`
+--
+
+LOCK TABLES `white_cauliflower` WRITE;
+/*!40000 ALTER TABLE `white_cauliflower` DISABLE KEYS */;
+/*!40000 ALTER TABLE `white_cauliflower` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `white_cauliflower_column`
+--
+
+DROP TABLE IF EXISTS `white_cauliflower_column`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `white_cauliflower_column` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `created_time` datetime(6) NOT NULL,
+  `updated_time` datetime(6) NOT NULL,
+  `is_available` tinyint(1) NOT NULL DEFAULT '0',
+  `name` varchar(200) NOT NULL DEFAULT '' COMMENT '名称',
+  `type` varchar(200) NOT NULL DEFAULT '' COMMENT '类型',
+  `heat` int NOT NULL DEFAULT '0' COMMENT '热度',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `white_cauliflower_column`
+--
+
+LOCK TABLES `white_cauliflower_column` WRITE;
+/*!40000 ALTER TABLE `white_cauliflower_column` DISABLE KEYS */;
+/*!40000 ALTER TABLE `white_cauliflower_column` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -200,4 +585,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-31 10:31:29
+-- Dump completed on 2021-06-10 14:07:02

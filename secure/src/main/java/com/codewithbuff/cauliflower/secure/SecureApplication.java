@@ -25,6 +25,7 @@ public class SecureApplication {
                 .DELETE("/logout", userHandler::loginOut)
                 .POST("/signin", userHandler::signIn)
                 .DELETE("/signout", userHandler::signOut)
+                .PUT("/refresh/token", userHandler::accessToken)
                 .build();
     }
 

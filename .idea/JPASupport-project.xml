@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoGeneratorSettingsState">
+    <option name="ignoredFields">
+      <set>
+        <option value="" />
+      </set>
+    </option>
+    <option name="moduleName" value="cauliflower" />
+    <option name="moduleNameToSettings">
+      <map>
+        <entry key="cauliflower">
+          <value>
+            <ModuleSettings>
+              <option name="entityPackageName" value="com.codewithbuff.cauliflower.secure.entity" />
+              <option name="entityParentDirectory" value="$PROJECT_DIR$/src/main/java" />
+              <option name="repositoryPackageName" value="com.codewithbuff.cauliflower.secure.dao" />
+              <option name="repositoryParentDirectory" value="$PROJECT_DIR$/src/main/java" />
+            </ModuleSettings>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="useFluidProgrammingStyle" value="true" />
+    <option name="useJava8DateType" value="true" />
+  </component>
+  <component name="DatabaseSettingsState">
+    <option name="language" value="zh-Hans-CN" />
+  </component>
+</project>

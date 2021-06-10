@@ -25,4 +25,8 @@ public class BaseUtils {
     public static String MD5(String plainText, String secret) {
         return Md5Util.md5(plainText + secret);
     }
+
+    public static String generateUsername() {
+        return UUID.randomUUID().toString().toUpperCase();
+    }
 }

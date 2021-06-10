@@ -1,5 +1,7 @@
 package com.codewithbuff.cauliflower.secure.system;
 
+import org.springframework.http.HttpHeaders;
+
 /**
  * @author 十三月之夜
  * @time 2021/4/22 12:11 上午
@@ -8,7 +10,7 @@ public class SystemConstant {
 
     public static final String BEARER = "Bearer";
 
-    public static final String AUTHORIZATION = "Authorization";
+    public static final String AUTHORIZATION = HttpHeaders.AUTHORIZATION;
 
     public static final String TOKEN_USERNAME = "USERNAME";
 

@@ -17,6 +17,7 @@
         <option value="$PROJECT_DIR$/connecting/pom.xml" />
         <option value="$PROJECT_DIR$/discovery/pom.xml" />
         <option value="$PROJECT_DIR$/connection/pom.xml" />
+        <option value="$PROJECT_DIR$/usermsg/pom.xml" />
       </list>
     </option>
   </component>

@@ -62,7 +62,12 @@ public enum HttpStatusExternal {
     /**
      * 用户认证失败
      */
-    USER_CREDENTIAL_FAILED(471, Series.CLIENT_ERROR, "User Credential Failed");
+    USER_CREDENTIAL_FAILED(471, Series.CLIENT_ERROR, "User Credential Failed"),
+
+    /**
+     * 请求参数缺失
+     */
+    CLIENT_PARAMETER_MISSING(472, Series.CLIENT_ERROR, "Client Parameter Missing");
 
 
     private final int value;

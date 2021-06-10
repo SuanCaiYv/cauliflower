@@ -54,4 +54,6 @@ public class UserAuths implements Serializable {
 
     public static final String IDENTITY_TYPE_EMAIL = "EMAIL";
 
+    public static final String IDENTITY_TYPE_USERNAME = "USERNAME";
+
 }

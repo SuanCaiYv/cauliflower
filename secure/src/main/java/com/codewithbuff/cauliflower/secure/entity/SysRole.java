@@ -43,4 +43,54 @@ public class SysRole implements Serializable {
     @Column("desc")
     private String desc;
 
+    /**
+     * 0 特罗姆瑟(Admin)
+     */
+    public static final String TROMS = "TROMS";
+
+    /**
+     * 1 巴尔斯菲尤尔
+     */
+    public static final String BALSFJORD = "BALSFJORD";
+
+    /**
+     * 2 巴尔迪
+     */
+    public static final String BARDU = "BARDU";
+
+    /**
+     * 3 贝格
+     */
+    public static final String BERG = "BERG";
+
+    /**
+     * 4 迪略
+     */
+    public static final String DYROY = "DYROY";
+
+    /**
+     * 5 格拉唐恩
+     */
+    public static final String GRATANGEN = "GRATANGEN";
+
+    /**
+     * 6 哈尔斯塔
+     */
+    public static final String HARSTAD = "HARSTAD";
+
+    /**
+     * 7 伊伯斯塔
+     */
+    public static final String IBESTAD = "IBESTAD";
+
+    /**
+     * 8 科菲尤尔
+     */
+    public static final String KAFJORD = "KAFJORD";
+
+    /**
+     * 9 卡尔绥
+     */
+    public static final String KARLSOY = "KARLSOY";
+
 }
