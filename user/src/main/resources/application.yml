@@ -1,1 +1,13 @@
+server:
+  port: 10010
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    registry-fetch-interval-seconds: 120
+    service-url:
+      defaultZone: http://${base.discovery.host}:${base.discovery.port}/eureka/
+logging:
+  level:
+    root: info
 

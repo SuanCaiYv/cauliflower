@@ -18,6 +18,10 @@ public class GatewayApplication {
                     return p1.path("/secure-service/**")
                             .uri("lb://CONFIG-SERVER");
                 })
+                .route(p1 -> {
+                    return p1.path("/user-service/**")
+                            .uri("lb://CONFIG-SERVER");
+                })
                 .build();
     }
 
