@@ -7,6 +7,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author CodeWithBuff(给代码来点Buff)
@@ -28,6 +29,7 @@ public class RedisOpsImpl implements RedisOps {
 
     @Override
     public List<Long> following(Long userId) {
+        Set<Object> range = redisTemplate.opsForZSet().range(SystemConstant.FOLLOWED_USER_PREFIX + userId, 0, Integer.MAX_VALUE);
         return null;
     }
 
